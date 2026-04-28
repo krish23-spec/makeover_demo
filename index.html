@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Euphoria | Luxury Makeover Studio & Salon</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fffef8;
+            color: #1a1a1a;
+            overflow-x: hidden;
+        }
+
+        /* Loader */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fffef8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .loader-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            letter-spacing: 10px;
+            color: #c4a27a;
+            animation: pulse 1.5s ease infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ========== NAVBAR ========== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.4s ease;
+            background: transparent;
+        }
+        .navbar.scrolled {
+            background: rgba(255, 254, 248, 0.98);
+            backdrop-filter: blur(15px);
+            padding: 0.8rem 5%;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            color: #1a1a1a;
+        }
+        .logo span {
+            color: #c4a27a;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        .nav-links a {
+            color: #1a1a1a;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+        .nav-links a:hover {
+            color: #c4a27a;
+        }
+        .book-btn {
+            background: #c4a27a;
+            padding: 0.6rem 1.8rem;
+            border-radius: 40px;
+            color: white !important;
+        }
+        .book-btn:hover {
+            background: #a8855e;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(196,162,122,0.3);
+            color: white !important;
+        }
+        .menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #1a1a1a;
+        }
+
+        /* ========== HERO SECTION - IMAGE VISIBLE ========== */
+        .hero {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: url('https://plus.unsplash.com/premium_photo-1661326352695-6cbe1ff74ee9?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bWFrZW92ZXJ8ZW58MHx8MHx8fDA%3D') center center/cover no-repeat;
+            background-attachment: scroll;
+        }
+        /* Dark overlay for text readability */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.45);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            padding: 0 20px;
+        }
+        .hero-badge {
+            display: inline-block;
+            padding: 0.5rem 1.2rem;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 50px;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        .hero h1 span {
+            color: #e8c4a0;
+        }
+        .hero-desc {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.9);
+            max-width: 550px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 1.2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn-primary {
+            background: #c4a27a;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .btn-primary:hover {
+            background: #a8855e;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(196,162,122,0.4);
+        }
+        .btn-outline {
+            border: 1.5px solid white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s;
+            background: transparent;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .btn-outline:hover {
+            background: rgba(255,255,255,0.15);
+            border-color: #c4a27a;
+            transform: translateY(-3px);
+        }
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            color: white;
+            z-index: 2;
+        }
+        @keyframes bounce {
+            0%,100%{transform:translateX(-50%) translateY(0);}
+            50%{transform:translateX(-50%) translateY(10px);}
+        }
+
+        /* ========== SECTION COMMON ========== */
+        section {
+            padding: 90px 5%;
+        }
+        .section-container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+        }
+        .section-title span {
+            color: #c4a27a;
+        }
+        .section-sub {
+            text-align: center;
+            color: #888;
+            margin-bottom: 3.5rem;
+            letter-spacing: 1px;
+            font-size: 1rem;
+        }
+
+        /* ========== ABOUT ========== */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3.5rem;
+            align-items: center;
+        }
+        .about-text p {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 1.2rem;
+            font-size: 1rem;
+        }
+        .about-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        .stat-item h4 {
+            font-size: 2rem;
+            color: #c4a27a;
+        }
+        .stat-item p {
+            color: #777;
+            font-size: 0.9rem;
+        }
+        .about-img {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+        .about-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: 0.5s;
+        }
+        .about-img:hover img {
+            transform: scale(1.03);
+        }
+
+        /* ========== SERVICES ========== */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.8rem;
+        }
+        .service-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.2rem 1.5rem;
+            text-align: center;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            border: 1px solid #f0e6df;
+        }
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 35px rgba(196,162,122,0.12);
+            border-color: #c4a27a;
+        }
+        .service-icon {
+            font-size: 2.8rem;
+            color: #c4a27a;
+            margin-bottom: 1.2rem;
+        }
+        .service-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+        }
+        .service-card p {
+            color: #777;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* ========== TABS SECTION ========== */
+        .tabs-section {
+            background: white;
+            border-radius: 30px;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            border: 1px solid #f0e6df;
+        }
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        .tab {
+            padding: 0.8rem 2rem;
+            background: transparent;
+            border: 1px solid #e0d4ca;
+            border-radius: 50px;
+            color: #1a1a1a;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        .tab:hover {
+            border-color: #c4a27a;
+            color: #c4a27a;
+        }
+        .tab.active {
+            background: #c4a27a;
+            border-color: #c4a27a;
+            color: white;
+        }
+        .tab-pane {
+            display: none;
+            text-align: center;
+            padding: 1.5rem;
+            color: #555;
+            line-height: 1.7;
+        }
+        .tab-pane.active {
+            display: block;
+            animation: fade 0.4s;
+        }
+        .tab-pane a {
+            color: #c4a27a;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+        .tab-pane a:hover {
+            text-decoration: underline;
+        }
+
+        /* ========== PACKAGES ========== */
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.8rem;
+        }
+        .package-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+            border: 1px solid #f0e6df;
+        }
+        .package-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(196,162,122,0.1);
+            border-color: #c4a27a;
+        }
+        .package-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+        .package-card p {
+            color: #777;
+        }
+        .package-price {
+            font-size: 2.2rem;
+            color: #c4a27a;
+            font-weight: 700;
+            margin: 1rem 0;
+        }
+        .package-btn {
+            background: transparent;
+            border: 1.5px solid #c4a27a;
+            padding: 0.7rem 1.8rem;
+            border-radius: 40px;
+            color: #c4a27a;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .package-btn:hover {
+            background: #c4a27a;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* ========== TESTIMONIALS ========== */
+        .testimonials-slider {
+            display: flex;
+            gap: 1.8rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            padding: 1rem 0.5rem;
+        }
+        .testi-card {
+            min-width: 350px;
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            scroll-snap-align: start;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+            border: 1px solid #f0e6df;
+        }
+        .testi-card i {
+            font-size: 2rem;
+            color: #c4a27a;
+            opacity: 0.5;
+        }
+        .testi-card p {
+            color: #555;
+            margin: 1rem 0;
+            line-height: 1.6;
+            font-style: italic;
+        }
+        .testi-card h4 {
+            color: #c4a27a;
+            margin-top: 0.5rem;
+        }
+        .stars {
+            color: #ffc107;
+            margin-top: 0.5rem;
+        }
+
+        /* ========== GALLERY ========== */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.2rem;
+        }
+        .gallery-item {
+            height: 260px;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+
+        /* ========== BRANDS ========== */
+        .brands-section {
+            padding: 3rem 5%;
+            text-align: center;
+            background: #fefaf5;
+        }
+        .brand-logos {
+            display: flex;
+            justify-content: center;
+            gap: 3.5rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .brand-logos span {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: #aaa;
+            letter-spacing: 2px;
+        }
+
+        /* ========== CONTACT ========== */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            background: white;
+            border-radius: 30px;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            border: 1px solid #f0e6df;
+        }
+        .contact-info p {
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: #555;
+        }
+        .contact-info i {
+            color: #c4a27a;
+            width: 28px;
+            font-size: 1.1rem;
+        }
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 1rem;
+            margin: 0.6rem 0;
+            background: #fefaf5;
+            border: 1px solid #e0d4ca;
+            border-radius: 12px;
+            color: #1a1a1a;
+            font-size: 0.95rem;
+            transition: 0.3s;
+        }
+        .contact-form input:focus, .contact-form textarea:focus {
+            outline: none;
+            border-color: #c4a27a;
+        }
+        .contact-form button {
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: #1a1a1a;
+            color: #ccc;
+            padding: 3rem 5% 2rem;
+            text-align: center;
+        }
+        .footer .logo {
+            color: white;
+            margin-bottom: 1rem;
+        }
+        .footer .logo span {
+            color: #c4a27a;
+        }
+        .footer p {
+            color: #888;
+            margin: 0.5rem 0;
+        }
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #333;
+            font-size: 0.75rem;
+            color: #666;
+        }
+
+        /* ========== BACK TO TOP ========== */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 45px;
+            height: 45px;
+            background: #c4a27a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: 0.3s;
+            z-index: 99;
+            color: white;
+        }
+        .back-to-top:hover {
+            background: #a8855e;
+            transform: translateY(-3px);
+        }
+        .back-to-top.show {
+            opacity: 1;
+        }
+
+        @keyframes fade {
+            from { opacity: 0; transform: translateY(10px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        /* ========== RESPONSIVE DESIGN ========== */
+        @media (max-width: 1024px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .packages-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-btn {
+                display: block;
+            }
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 80%;
+                height: calc(100vh - 70px);
+                background: #fffef8;
+                flex-direction: column;
+                align-items: center;
+                padding-top: 3rem;
+                transition: 0.3s;
+                box-shadow: 2px 0 20px rgba(0,0,0,0.1);
+                gap: 2rem;
+            }
+            .nav-links.active {
+                left: 0;
+            }
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .btn-primary, .btn-outline {
+                width: 80%;
+                text-align: center;
+            }
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+            .packages-grid {
+                grid-template-columns: 1fr;
+            }
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            .contact-grid {
+                grid-template-columns: 1fr;
+                padding: 1.5rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .tabs-section {
+                padding: 1.5rem;
+            }
+            .tab {
+                padding: 0.5rem 1.2rem;
+                font-size: 0.9rem;
+            }
+            .testi-card {
+                min-width: 280px;
+            }
+            .brand-logos {
+                gap: 1.8rem;
+            }
+            .brand-logos span {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            section {
+                padding: 60px 5%;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .section-title {
+                font-size: 1.8rem;
+            }
+            .service-card {
+                padding: 1.5rem;
+            }
+            .contact-grid {
+                padding: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="loader" id="loader">
+    <div class="loader-text">EUPHORIA</div>
+</div>
+
+<nav class="navbar" id="navbar">
+    <div class="logo">EU<span>PHORIA</span></div>
+    <div class="menu-btn" id="menuBtn"><i class="fas fa-bars"></i></div>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#packages">Packages</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#" class="book-btn">Book Now</a></li>
+    </ul>
+</nav>
+
+<!-- Hero Section -->
+<section id="home" class="hero">
+    <div class="hero-content">
+        <div class="hero-badge">EST. 2012 — LUXURY MAKEOVER STUDIO</div>
+        <h1>Hair.<span>Beauty</span>.Spa</h1>
+        <p class="hero-desc">Experience the finest hair, beauty, and spa services in Medicine Hat. Your transformation starts here.</p>
+        <div class="hero-buttons">
+            <button class="btn-primary" onclick="alert('Booking demo - Call 403.878.5915')">Book Appointment →</button>
+            <button class="btn-outline" onclick="alert('Call: 403.878.5915')"><i class="fas fa-phone-alt"></i> Call 403.878.5915</button>
+        </div>
+    </div>
+    <div class="scroll-indicator">
+        <i class="fas fa-chevron-down"></i>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about">
+    <div class="section-container">
+        <h2 class="section-title reveal">Our <span>Finest Care</span></h2>
+        <p class="section-sub reveal">Luxury redefined since 2012</p>
+        <div class="about-grid">
+            <div class="about-text reveal">
+                <p>In 2012, Euphoria opened up Downtown in Medicine Hat. Within a few years, we underwent a massive expansion and relocation to Southview Drive to serve our growing family of clients better.</p>
+                <p>We strive to give our clients the best possible experience by offering premium hair, beauty, and spa services. You can feel confident that you are receiving the best care in the business!</p>
+                <p style="color:#c4a27a; font-weight:500;">✦ Experience Our Space ✦</p>
+                <div class="about-stats">
+                    <div class="stat-item"><h4 id="yearsCount">0</h4><p>Years of Excellence</p></div>
+                    <div class="stat-item"><h4 id="clientsCount">0</h4><p>Happy Clients</p></div>
+                </div>
+            </div>
+            <div class="about-img reveal">
+                <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=600" alt="Euphoria Salon Interior">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section id="services">
+    <div class="section-container">
+        <h2 class="section-title reveal">Signature <span>Services</span></h2>
+        <p class="section-sub reveal">Premium treatments tailored just for you</p>
+        <div class="services-grid">
+            <div class="service-card reveal"><div class="service-icon"><i class="fas fa-cut"></i></div><h3>Hair Studio</h3><p>Expert cuts, color, extensions & bridal styling</p></div>
+            <div class="service-card reveal"><div class="service-icon"><i class="fas fa-spa"></i></div><h3>Spa Rituals</h3><p>Massages, facials, body wraps & aromatherapy</p></div>
+            <div class="service-card reveal"><div class="service-icon"><i class="fas fa-paintbrush"></i></div><h3>Makeup Artistry</h3><p>Bridal, editorial, airbrush & lash extensions</p></div>
+            <div class="service-card reveal"><div class="service-icon"><i class="fas fa-hand-sparkles"></i></div><h3>Nail Care</h3><p>Gel, acrylic, manicure & pedicure</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- Salon & Spa Tabs -->
+<section id="tabs">
+    <div class="section-container">
+        <div class="tabs-section reveal">
+            <div class="tabs">
+                <button class="tab active" data-tab="salon">Euphoria Salon</button>
+                <button class="tab" data-tab="spa">Euphoria Spa</button>
+            </div>
+            <div class="tab-pane active" id="salon">
+                <p>Luxury hair transformations using premium products like Olaplex, Joico, and Eufora. From classic cuts to avant-garde colors. Our expert stylists are trained in the latest techniques to give you the perfect look.</p>
+                <a href="#">View Our Gallery →</a>
+            </div>
+            <div class="tab-pane" id="spa">
+                <p>Rejuvenate with our signature massages, organic facials, and healing body rituals. Your sanctuary of peace awaits. Experience deep relaxation with our therapeutic treatments designed to refresh your mind and body.</p>
+                <a href="#">View Our Gallery →</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Packages Section -->
+<section id="packages">
+    <div class="section-container">
+        <h2 class="section-title reveal">Luxury <span>Packages</span></h2>
+        <p class="section-sub reveal">Choose your perfect experience</p>
+        <div class="packages-grid">
+            <div class="package-card reveal"><h3>Euphoria Glow</h3><p>Haircut + Blowdry + Mini Facial</p><div class="package-price">$89</div><button class="package-btn" onclick="alert('Book Euphoria Glow package')">Book Now</button></div>
+            <div class="package-card reveal"><h3>Divine Spa</h3><p>60min Massage + Body Scrub + Sauna</p><div class="package-price">$159</div><button class="package-btn" onclick="alert('Book Divine Spa package')">Book Now</button></div>
+            <div class="package-card reveal"><h3>Bridal Dreams</h3><p>Trial + Hair + Makeup + Lashes</p><div class="package-price">$279</div><button class="package-btn" onclick="alert('Book Bridal Dreams package')">Book Now</button></div>
+        </div>
+    </div>
+</section>
+
+<!-- Gallery Section -->
+<section id="gallery">
+    <div class="section-container">
+        <h2 class="section-title reveal">Our <span>Work</span></h2>
+        <p class="section-sub reveal">Real transformations, real happiness</p>
+        <div class="gallery-grid">
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=500" alt="Hair styling"></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1519415387722-a1c3bbef716c?w=500" alt="Spa treatment"></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=500" alt="Makeup artist"></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=500" alt="Salon interior"></div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section id="testimonials">
+    <div class="section-container">
+        <h2 class="section-title reveal">Client <span>Love</span></h2>
+        <p class="section-sub reveal">What our clients say about us</p>
+        <div class="testimonials-slider">
+            <div class="testi-card reveal"><i class="fas fa-quote-left"></i><p>"Absolutely transformed my look! The best salon experience ever. The staff is so warm and professional."</p><div class="stars">★★★★★</div><h4>— Sarah M.</h4></div>
+            <div class="testi-card reveal"><i class="fas fa-quote-left"></i><p>"Pure luxury and professionalism. I leave feeling like royalty every single time. Highly recommend their spa packages!"</p><div class="stars">★★★★★</div><h4>— Jessica L.</h4></div>
+            <div class="testi-card reveal"><i class="fas fa-quote-left"></i><p>"Best bridal makeup! Lasted all night long. Thank you Euphoria for making my wedding day perfect."</p><div class="stars">★★★★★</div><h4>— Amanda K.</h4></div>
+        </div>
+    </div>
+</section>
+
+<!-- Brands Section -->
+<div class="brands-section reveal">
+    <div class="brand-logos">
+        <span>avines</span>
+        <span>eufora</span>
+        <span>JOICO</span>
+        <span>OLAPLEX</span>
+        <span>Redken</span>
+    </div>
+</div>
+
+<!-- Contact Section -->
+<section id="contact">
+    <div class="section-container">
+        <h2 class="section-title reveal">Get in <span>Touch</span></h2>
+        <p class="section-sub reveal">We'd love to hear from you</p>
+        <div class="contact-grid reveal">
+            <div class="contact-info">
+                <p><i class="fas fa-map-marker-alt"></i> 123 Southview Drive, Medicine Hat, AB</p>
+                <p><i class="fas fa-phone-alt"></i> 403.878.5915</p>
+                <p><i class="fas fa-envelope"></i> hello@euphoriastudio.com</p>
+                <p><i class="far fa-clock"></i> Mon-Sat: 9AM - 8PM | Sun: 10AM - 5PM</p>
+                <div style="margin-top: 2rem; display: flex; gap: 1.5rem;">
+                    <i class="fab fa-instagram" style="font-size: 1.3rem; cursor: pointer; color: #888;"></i>
+                    <i class="fab fa-facebook-f" style="font-size: 1.3rem; cursor: pointer; color: #888;"></i>
+                    <i class="fab fa-pinterest" style="font-size: 1.3rem; cursor: pointer; color: #888;"></i>
+                    <i class="fab fa-tiktok" style="font-size: 1.3rem; cursor: pointer; color: #888;"></i>
+                </div>
+            </div>
+            <div class="contact-form">
+                <input type="text" placeholder="Your full name">
+                <input type="email" placeholder="Email address">
+                <input type="tel" placeholder="Phone number">
+                <textarea rows="4" placeholder="Tell us about your dream makeover..."></textarea>
+                <button class="btn-primary" onclick="alert('Thank you! We will contact you soon.')">Send Message</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="logo">EU<span>PHORIA</span></div>
+    <p>Hair . Beauty . Spa — Luxury since 2012</p>
+    <div class="copyright">© 2025 Euphoria Makeover Studio. All rights reserved.</div>
+</footer>
+
+<div class="back-to-top" id="backToTop">
+    <i class="fas fa-arrow-up"></i>
+</div>
+
+<script>
+    // Loader
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            document.getElementById('loader').classList.add('hidden');
+        }, 800);
+    });
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+        const navbar = document.getElementById('navbar');
+        if (window.scrollY > 50) navbar.classList.add('scrolled');
+        else navbar.classList.remove('scrolled');
+        
+        const backBtn = document.getElementById('backToTop');
+        if (window.scrollY > 500) backBtn.classList.add('show');
+        else backBtn.classList.remove('show');
+    });
+
+    // Mobile menu
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    if(menuBtn) {
+        menuBtn.addEventListener('click', () => navLinks.classList.toggle('active'));
+    }
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => navLinks.classList.remove('active'));
+    });
+
+    // Tabs functionality
+    const tabs = document.querySelectorAll('.tab');
+    const panes = document.querySelectorAll('.tab-pane');
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            panes.forEach(p => p.classList.remove('active'));
+            tab.classList.add('active');
+            document.getElementById(tab.dataset.tab).classList.add('active');
+        });
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    }, { threshold: 0.1 });
+    reveals.forEach(r => observer.observe(r));
+
+    // Counter animation
+    let counted = false;
+    const yearsCounter = document.getElementById('yearsCount');
+    const clientsCounter = document.getElementById('clientsCount');
+    
+    window.addEventListener('scroll', () => {
+        const aboutSection = document.getElementById('about');
+        const rect = aboutSection.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 100 && !counted) {
+            counted = true;
+            let y = 0, c = 0;
+            const yInterval = setInterval(() => { 
+                if (y < 13) yearsCounter.innerText = ++y; 
+                else clearInterval(yInterval); 
+            }, 50);
+            const cInterval = setInterval(() => { 
+                if (c < 5000) clientsCounter.innerText = ++c; 
+                else clearInterval(cInterval); 
+            }, 5);
+        }
+    });
+
+    // Back to top
+    const backBtn = document.getElementById('backToTop');
+    backBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+</script>
+</body>
+</html>
